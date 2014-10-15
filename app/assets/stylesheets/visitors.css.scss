@@ -1,3 +1,22 @@
 // Place all the styles related to the Visitors controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.forma {
+  font-size: 1em;
+  padding: 3em;
+  text-align: left;
+
+  table {
+    padding: 0.5em;
+    border: solid 1px;
+  }
+
+  .button {
+    font-size: inherit;
+
+  }
+}
+td {
+  padding: 1em 0 0 1em;
+}

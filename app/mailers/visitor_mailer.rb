@@ -5,6 +5,6 @@ class VisitorMailer < ActionMailer::Base
     @name = name
     @email = email
     @message = message
-    mail(to: 'fjs6@yahoo.com', subject: @message)
+    mail(to: 'javier@badaboom.com', subject: subject: 'New Visitor\'s Email')
   end
 end

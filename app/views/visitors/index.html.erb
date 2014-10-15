@@ -1,18 +1,27 @@
-<%= form_tag(visitors_contact_path, method: "post") do %>
-  <div>
-    <%= label_tag(:name, "Your Name") %>
-    <%= text_field_tag(:name) %>
-  </div>
+<%= form_tag(visitors_contact_path, method: 'post', class:'forma') do %>
+  <table>
+    <thead></thead>
+    <tbody>
 
-  <div>
-    <%= label_tag(:email, "Email") %>
-    <%= text_field_tag(:email) %>
-  </div>
+      <tr>
+        <td><%= label_tag(:name, 'Your Name') %></td>
+        <td><%= text_field_tag(:name) %></td>
+      </tr>
 
-  <div>
-    <%= label_tag(:message, "Message") %>
-    <%= text_area_tag(:message) %>
-  </div>
-  <%= submit_tag("Contact!") %>
+      <tr>
+        <td><%= label_tag(:email, 'Email') %></td>
+        <td><%= text_field_tag(:email) %></td>
+      </tr>
+
+      <tr>
+        <td><%= label_tag(:message, 'Message') %></td>
+        <td><%= text_area_tag(:message) %></td>
+      </tr>
+
+      <tr>
+        <td><%= submit_tag('Send Email', class: 'button') %></td>
+      </tr>
+    </tbody>
+  </table>
 <% end %>
 
