@@ -7,11 +7,10 @@ gem 'rails', '4.2.0.beta2'
 gem 'capybara-extensions'
 gem 'carrierwave_direct'
 gem 'coffee-rails', '~> 4.0.0'
-gem 'devise'
-gem 'figaro'
 gem 'byebug' # Call 'debugger' anywhere in the code
 gem 'jquery-rails', '~> 4.0.0.beta2'
 gem 'sass-rails', '~> 5.0.0.beta1'
+gem 'sidekiq'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 
@@ -23,10 +22,12 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'launchy'
+  gem "letter_opener"
   gem 'poltergeist'
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'rubocop'
+  gem 'sinatra', '>= 1.3.0', :require => nil
   gem 'spring'
   gem 'sqlite3'
   gem 'web-console', '~> 2.0.0.beta4' # Access an IRB console on exception
