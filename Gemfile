@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-source 'https://rubygems.org'
-
 gem 'rails', '4.2.0.beta2'
 
 gem 'capybara-extensions'
@@ -39,8 +37,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
-  gem 'rails_12factor'
 end
 
 ruby '2.1.2'
