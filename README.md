@@ -2,9 +2,9 @@
 
 This is a template for how to set up Rails 4.2 with background jobs from Sidekiq using Redis.
 
-Basically, when we create a background jobs we pass the worker an object with the data to use. In the most usual case, when we need to a Model object (i.e. ActiveRecord) we just pass the id of the object to the worker, Sidekiq and Rails takes care of everything for us (serializing and de-serializing it).
+In a nutshell, when we create a background jobs we pass an object with the data to use to the worker. In most cases, we pass a Model object (i.e. ActiveRecord), so make things simpler we just pass the id of the object to the worker, and Rails and Sidekiq take care of everything for us (finding it in the database, serializing and de-serializing it).
 
-In this template we have taken a different route, and instead of passing an existing Model object we pass an ad-hoc one, created in the spot and stored in a hash that we pass to the worked in json format. Then, it is up to us to tell the worker how de-serialize, reconstitute the original hash from the json string, to be able to operate on the data passed.
+In this template we have taken a different route. Instead of passing an existing Model object we pass an ad-hoc one, created in the spot and stored in a hash that we pass to the worked in json format. Then, it is up to us to tell the worker how to  de-serialize it, reconstituting the original hash from the json string, to be able to operate on the data passed.
 
 All this will become more clear with an example.
 
@@ -20,7 +20,7 @@ gem "letter_opener"
 gem "launchy"
 ```
 
-Letter_Oppener allow us, in development, to simulate the process of sending the email by instead creating it as a temporary file. That way we avoid sending the actual an email over the network, which is messy and brittle to test.
+Letter_Oppener allows us, in development, to simulate the process of sending the email by creating it as a temporary file. That way we avoid sending the actual email over the network, which is messy and brittle to test.
 
 The Launchy gem automatically opens the created temp file in a browser window so the sending process becomes automatic and we have real time confirmation that the email was sent correctly.
 
@@ -45,8 +45,6 @@ $ rails g mailer VisitorMailer
 ##### Create Mailer Action
 
 We pass to the Mailer action the information we need to build the email: name, email address and body of email. We make all of them available to the corresponding view (the email template) through instance variables.
-
-Consider that for production we would take out the default email address and set it in an ENV variable.
 
 Keep in mind that this action, 'contact_email', will be the one that the worker (background process) will execute.
 
@@ -92,7 +90,7 @@ Now that the Mailer is set and done we generate the VisitorsController.
 $ rails g controller visitors
 ```
 
-We add two actions. The index actions displays the basic contact form. Once submitted, it reaches  the contact action where we extract the form parameters.
+We add two actions. The index actions displays the basic contact form. Once submitted, it reaches the contact action where we extract the form parameters.
 
 The form information is packaged into a hash and subsequently JSONified so we can pass it as an argument to the worker (a Sidekiq requirement).
 
@@ -123,7 +121,7 @@ Simplicity personified:
 
 ##### Update the routes
 
-We haven't done it and we cannot defer anymore, we need to establish our routes and root.
+We haven't done it yet and we cannot defer anymore, we need to establish our routes and root.
 
 ```
 Rails.application.routes.draw do
@@ -165,7 +163,7 @@ class PostmanWorker
 end
 ```
 
-The results on the browser looks like this:
+The results show up in the browser when the email is sent:
 
 ![email sent to us](public/email.png)
 
@@ -177,14 +175,14 @@ This nifty tool, the Sidekiq Dashboard, runs on Sinatra, which we have to add to
 gem 'sinatra', '>= 1.3.0', :require => nil
 ```
 
-And we simply add it to our routes.
+And we simply add it to our routes...
 
 ```
 require 'sidekiq/web'
 mount Sidekiq::Web => '/sidekiq'
 ```
 
-And therefore it will become available in (depending on your setup) http://localhost:3000/sidekiq
+...so it becomes available in (depending on your setup) http://localhost:3000/sidekiq
 
 ![dashboard](public/dashboard.png)
 
@@ -206,3 +204,9 @@ $ bundle exec sidekiq
 
 You can also user [Foreman](https://github.com/ddollar/foreman) and save yourself opening tabs and running things separately.
 
+We haven't included tests in this template, which is a necessary best practice to follow. I leave it up to you to BDD this template with the necessary tests.
+
+### Authors:
+
+- Scott Hale
+- Javier Soto
